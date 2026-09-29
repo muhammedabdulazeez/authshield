@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Digital Academy | AuthShield 360</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Top Security Indicator Bar -->
+  <div class="border-b border-slate-800 bg-slate-900/90 text-xs px-4 sm:px-8 py-2 flex justify-between items-center text-slate-400">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span>Gateway: <strong class="text-slate-200">AuthShield Identity Core 24</strong></span>
+    </div>
+    <div class="font-mono text-[11px] text-slate-500">OIDC / RFC 6238 TOTP Enforced</div>
+  </div>
+
+  <!-- Global Header -->
+  <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center space-x-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+          <i data-lucide="shield" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+            Apex Academy <span class="text-indigo-400 font-mono text-xs px-1.5 py-0.5 rounded bg-indigo-950/80 border border-indigo-800">PORTAL</span>
+          </span>
+          <span class="block text-[11px] text-slate-400 font-medium -mt-0.5 tracking-wide uppercase">Identity-Driven Workspace</span>
+        </div>
+      </a>
+
+      <!-- Navigation Identity Bar -->
+      <div class="flex items-center space-x-4">
+        {% if user %}
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800">
+            <i data-lucide="user-check" class="w-4 h-4 text-emerald-400"></i>
+            <span class="text-xs font-mono text-slate-200">{{ user.get('preferred_username', 'User') }}</span>
+          </div>
+          <a href="/logout" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600/90 hover:bg-rose-600 text-xs font-semibold text-white transition-colors shadow-sm">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+            <span>Sign Out</span>
+          </a>
+        {% else %}
+          <a href="/login" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-xs font-bold text-white shadow-lg shadow-indigo-500/20 transition-all">
+            <i data-lucide="key-round" class="w-4 h-4"></i>
+            <span>Authenticate via Keycloak</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Workspace Body -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    
+    {% if not user %}
+      <!-- Unauthenticated Hero Section -->
+      <div class="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-slate-950 p-8 sm:p-12 mb-10 text-center shadow-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-4">
+          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+          <span>Zero-Trust Academic Gateway</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight max-w-3xl mx-auto leading-tight">
+          Apex Digital Academy Secure Identity Center
+        </h1>
+        <p class="text-slate-400 text-sm sm:text-base max-w-2xl mx-auto mt-4 leading-relaxed">
+          Integrated with centralized single sign-on (SSO), role-based boundary enforcement (RBAC), and multi-factor defense mechanisms.
+        </p>
+        <div class="mt-8 flex justify-center">
+          <a href="/login" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-sm font-semibold text-white shadow-xl shadow-indigo-600/30 transition-all transform hover:-translate-y-0.5">
+            <i data-lucide="log-in" class="w-4 h-4"></i>
+            <span>Proceed to Login</span>
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <!-- Authenticated User Banner -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4 mb-8">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs text-indigo-400 font-semibold uppercase tracking-wider mb-2">
+            <i data-lucide="badge-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>Session Active &bull; Identity Confirmed</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Academic Operations Hub</h1>
+          <p class="text-slate-400 text-sm mt-1">
+            Logged in as: <span class="text-white font-mono font-semibold">{{ user.get('preferred_username', 'User') }}</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Module Selection Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Module 1: Student Directory -->
+        <a href="/records" class="group relative rounded-2xl border border-slate-800 bg-slate-900/50 p-6 hover:border-blue-500/50 hover:bg-slate-900/80 transition-all shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+              <i data-lucide="folder-git-2" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">All Users</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Academic Records</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Universal student enrollment registry, syllabus schedules, and general course directories.</p>
+          <div class="mt-6 flex items-center text-xs font-semibold text-blue-400 gap-1">
+            <span>Enter Service</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </a>
+
+        <!-- Module 2: Grades & Evaluation -->
+        <a href="/grades" class="group relative rounded-2xl border border-slate-800 bg-slate-900/50 p-6 hover:border-emerald-500/50 hover:bg-slate-900/80 transition-all shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Teacher / Admin</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">Examination & Grades</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Continuous assessment ledgers, grading distribution, and semester evaluations.</p>
+          <div class="mt-6 flex items-center text-xs font-semibold text-emerald-400 gap-1">
+            <span>Enter Service</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </a>
+
+        <!-- Module 3: Security & Admin Console -->
+        <a href="/admin-console" class="group relative rounded-2xl border border-slate-800 bg-slate-900/50 p-6 hover:border-purple-500/50 hover:bg-slate-900/80 transition-all shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+              <i data-lucide="shield-alert" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">Admin Only</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">Admin Console</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Privileged SOC dashboard, brute-force security controls, and authentication logs.</p>
+          <div class="mt-6 flex items-center text-xs font-semibold text-purple-400 gap-1">
+            <span>Enter Service</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </div>
+        </a>
+
+      </div>
+    {% endif %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/60 py-6 text-center text-xs text-slate-500 font-mono">
+    AuthShield 360 &bull; Enterprise OpenID Connect Architecture
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrative Console | AuthShield 360</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Top Header -->
+  <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="/" class="flex items-center space-x-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform">
+            <i data-lucide="shield-alert" class="w-5 h-5 text-white"></i>
+          </div>
+          <div>
+            <span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+              AuthShield <span class="text-purple-400 font-mono text-xs px-1.5 py-0.5 rounded bg-purple-950/80 border border-purple-800">SOC CONSOLE</span>
+            </span>
+            <span class="block text-[11px] text-slate-400 font-medium -mt-0.5 tracking-wide uppercase">Privileged Access Tier</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800">
+          <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+          <span class="text-xs font-mono text-slate-300">RBAC: Enforced</span>
+        </div>
+        <a href="/" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span>Dashboard</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Console Body -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    
+    <!-- Breadcrumb & User Metadata Banner -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4 mb-8">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs text-purple-400 font-semibold uppercase tracking-wider mb-2">
+          <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+          <span>Strict Tier-0 Policy Boundary</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Administrative Management Console</h1>
+        <p class="text-slate-400 text-sm mt-1">
+          Logged in as: <span class="text-white font-mono font-semibold">{{ user['preferred_username'] }}</span>
+          <span class="ml-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+            Administrator Role Verified
+          </span>
+        </p>
+      </div>
+
+      <!-- Quick Metrics Counters -->
+      <div class="flex items-center gap-3">
+        <div class="px-4 py-2 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+          <span class="block text-lg font-mono font-bold text-white">3</span>
+          <span class="text-[10px] uppercase font-semibold text-slate-400">Audit Events</span>
+        </div>
+        <div class="px-4 py-2 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+          <span class="block text-lg font-mono font-bold text-emerald-400">Active</span>
+          <span class="text-[10px] uppercase font-semibold text-slate-400">Lockout Guard</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Traces Card -->
+    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-xl shadow-slate-950/40">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="terminal" class="w-5 h-5 text-purple-400"></i>
+            Simulated Audit & Security Traces
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Real-time authentication records captured across realm endpoints.</p>
+        </div>
+        
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono bg-slate-800/80 text-slate-300 border border-slate-700 self-start sm:self-auto">
+          <i data-lucide="activity" class="w-3.5 h-3.5 text-indigo-400"></i>
+          <span>Live Sync: Keycloak 24</span>
+        </span>
+      </div>
+
+      <!-- Table Wrapper -->
+      <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/40">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-slate-800 bg-slate-900/90 text-slate-400 text-xs font-semibold uppercase tracking-wider">
+              <th class="py-3 px-4">Event ID</th>
+              <th class="py-3 px-4">Timestamp</th>
+              <th class="py-3 px-4">Target User</th>
+              <th class="py-3 px-4">Security Action</th>
+              <th class="py-3 px-4">Outcome</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 font-mono text-xs">
+            
+            <!-- Row 1: Valid Login -->
+            <tr class="hover:bg-slate-900/40 transition-colors">
+              <td class="py-3.5 px-4 font-semibold text-indigo-400">SEC-8821</td>
+              <td class="py-3.5 px-4 text-slate-400">14:02:11</td>
+              <td class="py-3.5 px-4 text-slate-200">student1</td>
+              <td class="py-3.5 px-4">
+                <span class="text-slate-300 font-sans font-medium">PASSWORD_VERIFY</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-sans">
+                  <i data-lucide="check" class="w-3 h-3"></i>
+                  SUCCESS
+                </span>
+              </td>
+            </tr>
+
+            <!-- Row 2: Brute Force Block -->
+            <tr class="hover:bg-slate-900/40 transition-colors bg-rose-950/10">
+              <td class="py-3.5 px-4 font-semibold text-rose-400">SEC-8822</td>
+              <td class="py-3.5 px-4 text-slate-400">14:02:40</td>
+              <td class="py-3.5 px-4 text-rose-300 font-semibold">unknown_attacker</td>
+              <td class="py-3.5 px-4">
+                <span class="text-rose-200 font-sans font-medium">BRUTE_FORCE_ATTEMPT</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20 font-sans">
+                  <i data-lucide="shield-x" class="w-3 h-3"></i>
+                  BLOCKED (429)
+                </span>
+              </td>
+            </tr>
+
+            <!-- Row 3: MFA Step-Up -->
+            <tr class="hover:bg-slate-900/40 transition-colors">
+              <td class="py-3.5 px-4 font-semibold text-amber-400">SEC-8823</td>
+              <td class="py-3.5 px-4 text-slate-400">14:05:19</td>
+              <td class="py-3.5 px-4 text-slate-200">admin1</td>
+              <td class="py-3.5 px-4">
+                <span class="text-slate-300 font-sans font-medium">MFA_STEP_UP_EMAIL</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 font-sans">
+                  <i data-lucide="shield-check" class="w-3 h-3"></i>
+                  VERIFIED
+                </span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer Policy Note -->
+      <div class="mt-4 flex items-center justify-between text-xs text-slate-500 font-sans">
+        <span class="flex items-center gap-1.5">
+          <i data-lucide="info" class="w-3.5 h-3.5 text-slate-400"></i>
+          Strict Access: Only accounts holding the <code class="text-purple-400 font-mono">Administrator</code> role can access these controls.
+        </span>
+        <span class="font-mono">Cluster: local-docker</span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800/60 py-4 text-center text-xs text-slate-500 font-mono">
+    AuthShield 360 Privileged Operations &bull; Session Authenticated via Keycloak OpenID Connect
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
